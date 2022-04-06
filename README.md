@@ -1,8 +1,10 @@
 English version of the README -> please [click here](./README-EN.md)
 
 # TCP-IP CR-CPP
-
 关于CR的Demo，基于TCP/IP协议的C++的封装，Qt实现的UI。
+
+## 关于版本匹配说明
+1. 此Demo适用于CR系列的V3.5.2及以上控制器版本。
 
 ## 文件以及类的说明
 1. api目录包含了CR的相关功能封装的各个类，基于纯c++编写的。

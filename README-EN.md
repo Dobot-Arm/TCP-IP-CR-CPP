@@ -1,8 +1,10 @@
 Chinese version of the README -> please [click here](./README.md)
 
 # TCP-IP CR-CPP
-
 About the CR demo, the C++ package based on the TCP/IP protocol, and the UI implemented by Qt.
+
+## About version matching instructions
+1. This Demo is applicable to V3.5.2 and above controller version of CR series.
 
 ## File and class descriptions
 1. The api directory contains various classes that encapsulate the related functions of CR, which are written based on pure C++.
