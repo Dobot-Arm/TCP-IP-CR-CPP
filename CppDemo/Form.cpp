@@ -4,6 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QDateTime>
+#include <QDir>
 
 #include "api/ErrorInfoHelper.h"
 
@@ -97,6 +98,10 @@ Form::Form(QWidget *parent)
     ui->boxDashboard->setEnabled(false);
     ui->boxMoveFunction->setEnabled(false);
     ui->boxFeedback->setEnabled(false);
+
+    QString strPath = qApp->applicationDirPath() + QDir::separator();
+    CErrorInfoHelper::ParseControllerJsonFile(QString(strPath+ "alarm_controller.json").toStdString());
+    CErrorInfoHelper::ParseServoJsonFile(QString(strPath + "alarm_servo.json").toStdString());
 }
 
 Form::~Form()
@@ -393,9 +398,9 @@ void Form::ParseWarn()
 
     //剩余7组[]，第1组是控制器报警，其他6组是伺服报警
     QString strShowTxt;
-    QJsonDocument doc = QJsonDocument::fromRawData(strResult.c_str(), strResult.size());
+    QJsonDocument doc = QJsonDocument::fromJson(QByteArray(strResult.c_str(), strResult.size()));
     do{
-        if (doc.isArray()) break;
+        if (!doc.isArray()) break;
         QJsonArray arrWarn = doc.array();
         for (int i = 0; i < arrWarn.size(); ++i)
         {
@@ -434,7 +439,7 @@ void Form::ParseWarn()
             iLineCount = 0;
         }
         ++iLineCount;
-        QString strTime = QDateTime::currentDateTime().toLocalTime().toString("Time Stamp: yyyy-MM-dd HH:mm:ss");
+        QString strTime = QString("Time Stamp: ") + QDateTime::currentDateTime().toLocalTime().toString("yyyy-MM-dd HH:mm:ss");
         ui->textEditErrorInfo->append(strTime);
         ui->textEditErrorInfo->append(strShowTxt);
     }
